@@ -1,6 +1,7 @@
 cmake_minimum_required(VERSION 3.10)
 project(c_osrm)
 
+add_compile_options(-fno-lto)
 set(CMAKE_CXX_STANDARD 14)
 include(ExternalProject)
 
