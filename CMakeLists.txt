@@ -8,7 +8,7 @@ include(ExternalProject)
 list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake")
 
 link_directories(${LibOSRM_LIBRARY_DIRS})
-add_library(c_osrm SHARED c_osrm.cpp)
+add_library(c_osrm STATIC c_osrm.cpp)
 install(TARGETS c_osrm DESTINATION /usr/local/lib/)
 
 find_package(Boost REQUIRED regex date_time chrono filesystem iostreams thread system)
