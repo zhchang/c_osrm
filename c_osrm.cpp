@@ -1935,7 +1935,7 @@ void destroy_lanes(osrm_lane_t  *lanes, int number_of_lanes)
 
 char* get_string(std::string key, json::Object &json)
 {
-    char* return_value;
+    char* return_value = NULL;
     if(json.values.find(key) != json.values.end())
     {
         const auto value = json.values[key].get<json::String>().value;
