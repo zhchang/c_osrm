@@ -255,7 +255,7 @@ enum status osrm_nearest(void *c_osrm, nearest_request_t* request, nearest_resul
         return_result->waypoints = static_cast<nearest_waypoint_t  *>(malloc(sizeof(nearest_waypoint_t) * waypoints.size()));
         return_result->number_of_waypoints = waypoints.size();
 
-        for(int i = 0; i < waypoints.size(); i++)
+        for(unsigned int i = 0; i < waypoints.size(); i++)
         {
             auto waypoint = waypoints[i].get<json::Object>();
             const auto distance = waypoint.values["distance"].get<json::Number>().value;
@@ -458,7 +458,7 @@ enum status osrm_table(void *c_osrm, table_request_t* request, table_result_t** 
         return_result->sources = static_cast<waypoint_t  *>(malloc(sizeof(waypoint_t) * sources.size()));
         return_result->number_of_sources = sources.size();
 
-        for(int i = 0; i < sources.size(); i++)
+        for(unsigned int i = 0; i < sources.size(); i++)
         {
             auto source = sources[i].get<json::Object>();
             const auto distance = source.values["distance"].get<json::Number>().value;
@@ -477,7 +477,7 @@ enum status osrm_table(void *c_osrm, table_request_t* request, table_result_t** 
         return_result->destinations = static_cast<waypoint_t  *>(malloc(sizeof(waypoint_t) * destinations.size()));
         return_result->number_of_destinations = destinations.size();
 
-        for(int i = 0; i < destinations.size(); i++)
+        for(unsigned int i = 0; i < destinations.size(); i++)
         {
             auto destination = destinations[i].get<json::Object>();
             const auto distance = destination.values["distance"].get<json::Number>().value;
@@ -494,11 +494,11 @@ enum status osrm_table(void *c_osrm, table_request_t* request, table_result_t** 
         }
 
         return_result->durations = static_cast<double*>(malloc(sizeof(double) * sources.size() * durations.size()));
-        for(int i = 0; i < sources.size(); i++)
+        for(unsigned int i = 0; i < sources.size(); i++)
         {
             const auto durations_element = durations[i].get<json::Array>().values;
 
-            for(int j = 0; j < durations_element.size(); j++)
+            for(unsigned int j = 0; j < durations_element.size(); j++)
             {
                 return_result->durations[i * sources.size() +j] = durations_element[j].get<json::Number>().value;
             }
@@ -721,7 +721,7 @@ enum status osrm_route(void *c_osrm, route_request_t* request, route_result_t** 
             return_result->waypoints = static_cast<waypoint_t  *>(malloc(sizeof(waypoint_t) * waypoints.size()));
             return_result->number_of_waypoints = waypoints.size();
 
-            for(int i = 0; i < waypoints.size(); i++)
+            for(unsigned int i = 0; i < waypoints.size(); i++)
             {
                 auto waypoint = waypoints[i].get<json::Object>();
                 return_result->waypoints[i].name = NULL;
@@ -985,7 +985,7 @@ enum status osrm_match(void *c_osrm, match_request_t* request, match_result_t** 
             return_result->tracepoints = static_cast<match_waypoint_t  *>(malloc(sizeof(match_waypoint_t) * waypoints.size()));
             return_result->number_of_tracepoints = waypoints.size();
 
-            for(int i = 0; i < waypoints.size(); i++)
+            for(unsigned int i = 0; i < waypoints.size(); i++)
             {
                 auto waypoint = waypoints[i].get<json::Object>();
 
@@ -1219,7 +1219,7 @@ enum status osrm_trip(void *c_osrm, trip_request_t* request, trip_result_t** res
             return_result->waypoints = static_cast<trip_waypoint_t  *>(malloc(sizeof(trip_waypoint_t) * waypoints.size()));
             return_result->number_of_waypoints = waypoints.size();
 
-            for(int i = 0; i < waypoints.size(); i++)
+            for(unsigned int i = 0; i < waypoints.size(); i++)
             {
                 auto waypoint = waypoints[i].get<json::Object>();
                 return_result->waypoints[i].name = NULL;
@@ -1327,7 +1327,7 @@ osrm_route_t* parse_route(int &number_of_routes, const json::Array &routes)
 {
     osrm_route_t* osm_routes = static_cast<osrm_route_t  *>(malloc(sizeof(osrm_route_t) * routes.values.size()));
     number_of_routes = routes.values.size();
-    for(int i = 0; i < routes.values.size(); i++)
+    for(unsigned int i = 0; i < routes.values.size(); i++)
     {
         auto route = routes.values[i].get<json::Object>();
         osm_routes[i] = osrm_route_default;
@@ -1392,7 +1392,7 @@ void parse_match_route(match_result_t *return_result, const json::Array &routes)
 {
     return_result->matchings = static_cast<match_osrm_route_t  *>(malloc(sizeof(match_osrm_route_t) * routes.values.size()));
     return_result->number_of_matchings = routes.values.size();
-    for(int i = 0; i < routes.values.size(); i++)
+    for(unsigned int i = 0; i < routes.values.size(); i++)
     {
         auto route = routes.values[i].get<json::Object>();
         return_result->matchings[i] = match_osrm_route_default;
@@ -1461,7 +1461,7 @@ osrm_route_legs_t* parse_route_leg(int &number_of_legs, const json::Array &route
 {
     osrm_route_legs_t * legs = static_cast<osrm_route_legs_t  *>(malloc(sizeof(osrm_route_legs_t) * routes_legs.values.size()));
     number_of_legs = routes_legs.values.size();
-    for(int i = 0; i < routes_legs.values.size(); i++)
+    for(unsigned int i = 0; i < routes_legs.values.size(); i++)
     {
         auto route_leg = routes_legs.values[i].get<json::Object>();
         legs[i] = osrm_route_legs_default;
@@ -1533,7 +1533,7 @@ void parse_annotation(osrm_route_legs_t &route, json::Object &annotation)
         const auto duration_array = annotation.values["duration"].get<json::Array>().values;
         route.annotation->duration = static_cast<double  *>(malloc(sizeof(double) * duration_array.size()));
 
-        for(int i = 0; i < duration_array.size(); i++)
+        for(unsigned int i = 0; i < duration_array.size(); i++)
         {
             route.annotation->duration[i] = duration_array[i].get<json::Number>().value;
         }
@@ -1544,7 +1544,7 @@ void parse_annotation(osrm_route_legs_t &route, json::Object &annotation)
         route.annotation->distance = static_cast<double  *>(malloc(sizeof(double) * distance_array.size()));
         route.annotation->number_of_coordinates = distance_array.size();
         
-        for(int i = 0; i < distance_array.size(); i++)
+        for(unsigned int i = 0; i < distance_array.size(); i++)
         {
             route.annotation->distance[i] = distance_array[i].get<json::Number>().value;
         }
@@ -1553,7 +1553,7 @@ void parse_annotation(osrm_route_legs_t &route, json::Object &annotation)
     {
         const auto datasources_array = annotation.values["datasources"].get<json::Array>().values;
         route.annotation->datasources = static_cast<int  *>(malloc(sizeof(int) * datasources_array.size()));
-        for(int i = 0; i < datasources_array.size(); i++)
+        for(unsigned int i = 0; i < datasources_array.size(); i++)
         {
             route.annotation->datasources[i] = datasources_array[i].get<json::Number>().value;
         }
@@ -1562,7 +1562,7 @@ void parse_annotation(osrm_route_legs_t &route, json::Object &annotation)
     {
         const auto nodes_array = annotation.values["nodes"].get<json::Array>().values;
         route.annotation->datasources = static_cast<int  *>(malloc(sizeof(int) * nodes_array.size()));
-        for(int i = 0; i < nodes_array.size(); i++)
+        for(unsigned int i = 0; i < nodes_array.size(); i++)
         {
             route.annotation->nodes[i] = nodes_array[i].get<json::Number>().value;
         }
@@ -1571,7 +1571,7 @@ void parse_annotation(osrm_route_legs_t &route, json::Object &annotation)
     {
         const auto weight_array = annotation.values["weight"].get<json::Array>().values;
         route.annotation->weight = static_cast<double  *>(malloc(sizeof(double) * weight_array.size()));
-        for(int i = 0; i < weight_array.size(); i++)
+        for(unsigned int i = 0; i < weight_array.size(); i++)
         {
             route.annotation->weight[i] = weight_array[i].get<json::Number>().value;
         }
@@ -1580,7 +1580,7 @@ void parse_annotation(osrm_route_legs_t &route, json::Object &annotation)
     {
         const auto speed_array = annotation.values["speed"].get<json::Array>().values;
         route.annotation->speed = static_cast<double  *>(malloc(sizeof(double) * speed_array.size()));
-        for(int i = 0; i < speed_array.size(); i++)
+        for(unsigned int i = 0; i < speed_array.size(); i++)
         {
             route.annotation->speed[i] = speed_array[i].get<json::Number>().value;
         }
@@ -1594,7 +1594,7 @@ void parse_annotation(osrm_route_legs_t &route, json::Object &annotation)
             const auto datasource_names_array = metadata.values["datasource_names"].get<json::Array>().values;
             route.annotation->metadata->number_of_datasource_names = datasource_names_array.size();
             route.annotation->metadata->datasource_names = static_cast<char **>(malloc(sizeof(char*) * datasource_names_array.size()));
-            for(int i = 0; i < datasource_names_array.size(); i++)
+            for(unsigned int i = 0; i < datasource_names_array.size(); i++)
             {
                 const auto datasource_name = datasource_names_array[i].get<json::String>().value;
                 route.annotation->metadata->datasource_names[i] = (char*)malloc(sizeof(char) * (datasource_name.size() + 1));
@@ -1663,7 +1663,7 @@ void parse_step(osrm_route_legs_t &route, json::Array &steps)
     route.steps = static_cast<osrm_step_t  *>(malloc(sizeof(osrm_step_t) * steps.values.size()));
     route.number_of_steps = steps.values.size();
 
-    for(int i = 0; i < steps.values.size(); i++)
+    for(unsigned int i = 0; i < steps.values.size(); i++)
     {
         auto curret_json_step = steps.values[i].get<json::Object>();
         route.steps[i] = osrm_step_default;
@@ -1809,7 +1809,7 @@ void parse_intersections(osrm_step_t &step, json::Array &intersections)
 {
     step.intersections = static_cast<osrm_intersections_t  *>(malloc(sizeof(osrm_intersections_t) * intersections.values.size()));
     step.number_of_intersections = intersections.values.size();
-    for(int i = 0; i < intersections.values.size(); i++)
+    for(unsigned int i = 0; i < intersections.values.size(); i++)
     {
         auto intersection = intersections.values[i].get<json::Object>();
         step.intersections[i] = osrm_intersections_default;
@@ -1833,7 +1833,7 @@ void parse_intersections(osrm_step_t &step, json::Array &intersections)
             auto bearings = intersection.values["bearings"].get<json::Array>();
             step.intersections[i].bearings = static_cast<int  *>(malloc(sizeof(int) * bearings.values.size()));
             step.intersections[i].number_of_bearings = bearings.values.size();
-            for(int j = 0; j < bearings.values.size(); j++)
+            for(unsigned int j = 0; j < bearings.values.size(); j++)
             {
                 step.intersections[i].bearings[j] = bearings.values[j].get<json::Number>().value;
             }
@@ -1843,7 +1843,7 @@ void parse_intersections(osrm_step_t &step, json::Array &intersections)
             auto classes = intersection.values["classes"].get<json::Array>();
             step.intersections[i].classes = static_cast<char  **>(malloc(sizeof(char*) * classes.values.size()));
             step.intersections[i].number_of_classes = classes.values.size();
-            for(int j = 0; j < classes.values.size(); j++)
+            for(unsigned int j = 0; j < classes.values.size(); j++)
             {
                 step.intersections[i].classes[j] = get_string_from_string(classes.values[j].get<json::String>());
             }
@@ -1891,7 +1891,7 @@ void parse_lanes(osrm_intersections_t &intersections, json::Array &lanes)
 {
     intersections.lanes = static_cast<osrm_lane_t  *>(malloc(sizeof(osrm_lane_t) * lanes.values.size()));
     intersections.number_of_lanes = lanes.values.size();
-    for(int i = 0; i < lanes.values.size(); i++)
+    for(unsigned int i = 0; i < lanes.values.size(); i++)
     {
         auto lane = lanes.values[i].get<json::Object>();
         intersections.lanes[i] = osrm_lane_default;
@@ -1900,7 +1900,7 @@ void parse_lanes(osrm_intersections_t &intersections, json::Array &lanes)
         {
             auto indications = lane.values["indications"].get<json::Array>();
             intersections.lanes[i].indications = static_cast<char **>(malloc(sizeof(char *) * indications.values.size()));
-            for(int j = 0; j < indications.values.size(); j++)
+            for(unsigned int j = 0; j < indications.values.size(); j++)
             {
                 intersections.lanes[i].indications[j] = get_string_from_string(indications.values[j].get<json::String>());
             }
