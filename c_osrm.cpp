@@ -412,6 +412,7 @@ enum status osrm_table(void *c_osrm, table_request_t* request, table_result_t** 
             break;
     }
 
+
     switch (request->annotations)
     {
 
@@ -500,7 +501,7 @@ enum status osrm_table(void *c_osrm, table_request_t* request, table_result_t** 
 
             for(unsigned int j = 0; j < durations_element.size(); j++)
             {
-                return_result->durations[i * sources.size() +j] = durations_element[j].get<json::Number>().value;
+                return_result->durations[i * destinations.size() +j] = durations_element[j].get<json::Number>().value;
             }
         }
 
@@ -513,7 +514,7 @@ enum status osrm_table(void *c_osrm, table_request_t* request, table_result_t** 
 
                 for(unsigned int j = 0; j < distances_element.size(); j++)
                 {
-                    return_result->distances[i * sources.size() +j] = distances_element[j].get<json::Number>().value;
+                    return_result->distances[i * destinations.size() +j] = distances_element[j].get<json::Number>().value;
                 }
             }
         }
