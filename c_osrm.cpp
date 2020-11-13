@@ -1040,10 +1040,13 @@ enum status osrm_match(void *c_osrm, match_request_t* request, match_result_t** 
             parse_match_route(return_result, routes);
         }
 
-        std::cout << "beofre result I double check weight name  "  << return_result->matchings[1].weight_name  << std::endl;
-        std::cout << "beofre result I double check duration  "  << return_result->matchings[1].duration  << std::endl;
-        std::cout << "beofre result I double check distance  "  << return_result->matchings[1].distance  << std::endl;
-        std::cout << "beofre result I double check number of legs  "  << return_result->matchings[1].number_of_legs  << std::endl;
+        if (return_result->number_of_matchings > 1 ){
+            std::cout << "beofre result I double check weight name  "  << return_result->matchings[1].weight_name  << std::endl;
+            std::cout << "beofre result I double check duration  "  << return_result->matchings[1].duration  << std::endl;
+            std::cout << "beofre result I double check distance  "  << return_result->matchings[1].distance  << std::endl;
+            std::cout << "beofre result I double check number of legs  "  << return_result->matchings[1].number_of_legs  << std::endl;
+        }
+
         *result = return_result;
 
         return status::Ok;
