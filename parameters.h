@@ -155,7 +155,7 @@ struct match_waypoint
     int waypoint_index;
     int alternatives_count;
     int snap_failed;
-} const match_waypoint_default = {0, 0, 0, {0,0}, 0, 0, 0};
+} const match_waypoint_default = {0, 0, 0, {0,0}, 0, 0, 0, 0};
 
 typedef struct match_waypoint match_waypoint_t;
 
@@ -247,7 +247,7 @@ struct osrm_annotation
     int* datasources;
     osrm_metadata_t* metadata;
     int number_of_coordinates;
-} const osrm_annotation_default = {0, 0, 0, 0, 0, 0, 0};
+} const osrm_annotation_default = {0, 0, 0, 0, 0, 0, 0, 0};
 
 typedef struct osrm_annotation osrm_annotation_t;
 
@@ -287,7 +287,7 @@ struct match_osrm_route
     osrm_route_legs_t* legs;
     int number_of_legs;
     float confidence;
-} const match_osrm_route_default = {0, 0, 0, 0, 0, 0, 0};
+} const match_osrm_route_default = {0, 0, 0, 0, 0, 0, 0, 0};
 
 typedef struct match_osrm_route match_osrm_route_t;
 
@@ -447,7 +447,7 @@ struct match_result
     int number_of_tracepoints;
     match_osrm_route_t* matchings;
     int number_of_matchings;
-} const match_result_default = {0, 0};
+} const match_result_default = {0, 0, 0, 0, 0, 0};
 
 typedef struct match_result match_result_t;
 
