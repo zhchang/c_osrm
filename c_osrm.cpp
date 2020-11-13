@@ -1040,13 +1040,6 @@ enum status osrm_match(void *c_osrm, match_request_t* request, match_result_t** 
             parse_match_route(return_result, routes);
         }
 
-        if (return_result->number_of_matchings > 1 ){
-            std::cout << "beofre result I double check weight name  "  << return_result->matchings[1].weight_name  << std::endl;
-            std::cout << "beofre result I double check duration  "  << return_result->matchings[1].duration  << std::endl;
-            std::cout << "beofre result I double check distance  "  << return_result->matchings[1].distance  << std::endl;
-            std::cout << "beofre result I double check number of legs  "  << return_result->matchings[1].number_of_legs  << std::endl;
-        }
-
         *result = return_result;
 
         return status::Ok;
@@ -1440,7 +1433,6 @@ void parse_match_route(match_result_t *return_result, const json::Array &routes)
         if(route.values.find("weight_name") != route.values.end())
         {
             return_result->matchings[i].weight_name = get_string("weight_name", route);
-            std::cout << "parse_match_route got weight_name for " << i << "which is " << get_string("weight_name", route)  << " and also is " << return_result->matchings[i].weight_name  << std::endl;
         }
         if(route.values.find("weight") != route.values.end())
         {
