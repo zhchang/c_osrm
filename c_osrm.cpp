@@ -1024,9 +1024,9 @@ enum status osrm_match(void *c_osrm, match_request_t* request, match_result_t** 
             }
         }
 
-        if(json_result.values.find("routes") != json_result.values.end())
+        if(json_result.values.find("matchings") != json_result.values.end())
         {
-            const json::Array routes = json_result.values["routes"].get<json::Array>();
+            const json::Array routes = json_result.values["matchings"].get<json::Array>();
             parse_match_route(return_result, routes);
         }
 
@@ -1426,7 +1426,7 @@ void parse_match_route(match_result_t *return_result, const json::Array &routes)
         }
         if(route.values.find("weight") != route.values.end())
         {
-            return_result->matchings[i].distance = route.values["weight"].get<json::Number>().value;
+            return_result->matchings[i].weight = route.values["weight"].get<json::Number>().value;
         }
         if(route.values.find("geometry") != route.values.end())
         {
