@@ -154,6 +154,7 @@ struct match_waypoint
     int matchings_index;
     int waypoint_index;
     int alternatives_count;
+    int snap_failed;
 } const match_waypoint_default = {0, 0, 0, {0,0}, 0, 0, 0};
 
 typedef struct match_waypoint match_waypoint_t;
