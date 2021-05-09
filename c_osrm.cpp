@@ -711,7 +711,6 @@ enum status osrm_route(void *c_osrm, route_request_t* request, route_result_t** 
 
     engine::api::ResultT osr_result = json::Object();
 
-
     const auto status = osrm->Route(parameters, osr_result);
 
     auto &json_result = osr_result.get<json::Object>();
@@ -766,7 +765,6 @@ enum status osrm_route(void *c_osrm, route_request_t* request, route_result_t** 
             }
         }
         
-
 
         if(json_result.values.find("routes") != json_result.values.end())
         {
@@ -1586,7 +1584,7 @@ void parse_annotation(osrm_route_legs_t &route, json::Object &annotation)
     if(annotation.values.find("nodes") != annotation.values.end())
     {
         const auto nodes_array = annotation.values["nodes"].get<json::Array>().values;
-        route.annotation->datasources = static_cast<int  *>(malloc(sizeof(int) * nodes_array.size()));
+        route.annotation->nodes = static_cast<long int  *>(malloc(sizeof(long int) * nodes_array.size()));
         for(unsigned int i = 0; i < nodes_array.size(); i++)
         {
             route.annotation->nodes[i] = nodes_array[i].get<json::Number>().value;
